@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Jason Allan - {{title }}</title>
+	<link rel="stylesheet" href="/css/style.css">
+	{{#if ENV_DEVELOPMENT}}
+		<script src="http://localhost:35729/livereload.js"></script>
+	{{/if}}
+</head>
+
+<body>
+
+	<header>
+		<h2>
+			Jason Allan
+		</h2>
+		<nav>
+			<a href="/">home</a>
+			<a href="/about">about</a>
+			<a href="/portfolio">portfolio</a>
+			<a href="/contact">contact</a>
+			<a href="/staus">status</a>
+		</nav>
+	</header>
+	<article>
+
+	{{{body}}}
+
+	</article>
+  <hr />
+	<footer>
+		Copyright Jason Allan 2015
+
+	</footer>
+
+</body>
+
+</html>
