@@ -4,12 +4,12 @@ var homeOptions = {
 	title: 'Express',
 };
 
-simpleRouter( '/home', 'index', homeOptions );
-simpleRouter( '/contact', 'index', homeOptions );
-simpleRouter( '/feed', 'index', homeOptions );
-simpleRouter( '/about', 'index', homeOptions );
-simpleRouter( '/portfolio', 'index', homeOptions );
+simpleRouter( '/about', 'about', homeOptions );
+simpleRouter( '/portfolio', 'portfolio', homeOptions );
+simpleRouter( '/feed', 'feed', homeOptions );
+simpleRouter( '/contact', 'contact', homeOptions );
 simpleRouter( '/', 'index', homeOptions );
+
 
 function simpleRouter( path, view, opts ) {
 	router.get( path, ( req, res ) => res.render( view, opts ) );
