@@ -6,3 +6,22 @@ body {
 a {
   color: #00B7FF;
 }
+
+.feed-item {
+  border-left: #000 solid 5px;
+  margin-bottom: 3px;
+  padding-left: 5px;
+}
+
+.feed-item h4 {
+  margin: 0;
+}
+
+.feed-content {
+  font-size: 18px;
+  padding: 4px
+}
+
+.feed-meta-data {
+  font-size: 12px;
+}

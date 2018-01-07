@@ -1,3 +1,23 @@
-<p>
-  Feed me they said, and soon I did
-</p>
+{{#each feed }}
+  <div class="feed-item">
+    {{#if heading }}
+      <h4>
+        {{ heading }}
+      </h4>
+    {{/if}}
+
+    <div class="feed-content">
+      {{ content }}
+    </div>
+
+    <div class="feed-meta-data">
+      Time: {{ time }}
+      </div>
+
+    {{#if place }}
+      <div class="feed-meta-data">
+        From: {{ place }}
+      </div>
+    {{/if }}
+  </div>
+{{/each }}
