@@ -17,22 +17,18 @@
     <h2>
       Jason Allan
     </h2>
-    <nav>
-      <a href="/">home</a>
-      <a href="/about">about</a>
-      <a href="/portfolio">portfolio</a>
-      <a href="/feed">feed</a>
-      <a href="/contact">contact</a>
-    </nav>
+
+    {{> menu }}
   </header>
   <br>
   <article>
 
-    {{{body}}}
+    {{{ body }}}
 
   </article>
   <hr>
   <footer>
+    {{> menu }}
     Copyright Jason Allan 2015
   </footer>
 

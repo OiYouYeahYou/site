@@ -1,0 +1,13 @@
+<nav>
+	<a href="/">home</a>
+	{{#each mainMenu }}
+		<a href="/{{ this }}">{{ this }}</a>
+	{{/each }}
+</nav>
+{{#if submenu }}
+	<nav>
+		{{#each submenu }}
+			<a href="/{{ this }}">{{ this }}</a>
+		{{/each }}
+	</nav>
+{{/if }}
