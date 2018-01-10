@@ -1,24 +1,10 @@
 const router = module.exports = require( 'express' ).Router();
 
-const exampleFeed = [ {
-		heading: 'Totally not a blog post!',
-		content: 'Do ... I put words here?',
-		time: ( new Date( Date.now() ) ).toISOString(),
-	},
-	{
-		content: 'Hello World!',
-		time: ( new Date( Date.now() ) ).toISOString(),
-	},
-	{
-		content: 'In the begining!',
-		place: 'Twooter',
-		time: new Date( 0 ).toISOString(),
-	},
-];
+const feedList = require( './feed/list' );
 
 const homeOptions = {};
 const feedOptions = {
-	feed: exampleFeed
+	feed: feedList
 };
 
 simpleRouter( '/about', 'about', homeOptions );

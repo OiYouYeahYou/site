@@ -32,3 +32,5 @@ app.use( cookieParser() );
 app.use( express.static( pathPublic ) );
 
 app.use( '/', routes );
+
+require( './feed/github' )();
