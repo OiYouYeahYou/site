@@ -4,8 +4,8 @@ const favicon = require( 'serve-favicon' );
 const logger = require( 'morgan' );
 const cookieParser = require( 'cookie-parser' );
 const bodyParser = require( 'body-parser' );
-const exphbs = require( 'express-handlebars' );
 
+const exphbs = require( './exphbs' );
 const routes = require( './routes' );
 
 const pathView = path.join( __dirname, 'views' );
@@ -17,10 +17,7 @@ app.locals.ENV_DEVELOPMENT = app.locals.ENV == 'development';
 app.locals.mainMenu = [ 'about', 'portfolio', 'feed', 'contact' ];
 
 // view engine setup
-app.engine( 'handlebars', exphbs( {
-	defaultLayout: 'main',
-	partialsDir: [ 'views/partials/' ]
-} ) );
+app.engine( 'handlebars', exphbs );
 app.set( 'views', pathView );
 app.set( 'view engine', 'handlebars' );
 
