@@ -22,12 +22,15 @@ app.set( 'views', pathView );
 app.set( 'view engine', 'handlebars' );
 
 // app.use(favicon(__dirname + '/public/img/favicon.ico'));
-app.use( logger( 'dev' ) );
-app.use( bodyParser.json() );
-app.use( bodyParser.urlencoded( { extended: true } ) );
-app.use( cookieParser() );
-app.use( express.static( pathPublic ) );
+[
+	[ logger( 'dev' ) ],
+	[ bodyParser.json() ],
+	[ bodyParser.urlencoded( { extended: true } ) ],
+	[ cookieParser() ],
+	[ express.static( pathPublic ) ],
 
-app.use( '/', routes );
+	[ '/', routes ],
+].forEach( params => app.use( ...params ) )
+
 
 require( './feed/github' )();
