@@ -12,32 +12,35 @@ const requestOptions = {
 	}
 };
 
-function getUserEvents() {
-	request( eventURL, requestOptions, ( err, res, body ) => {
-		var events = JSON.parse( body );
+const sortTimeDesc = ( a, b ) => b.time - a.time;
 
-		events.forEach( event => {
-			if ( 'actor' in event )
-				delete event.actor;
-		} );
+const getUserEvents = module.exports = () => {
+	request( eventURL, requestOptions, responseHandler );
+}
 
-		processEventsToFeedItems( events );
+function responseHandler( err, res, body ) {
+	var events = JSON.parse( body );
+
+	events.forEach( event => {
+		if ( 'actor' in event )
+			delete event.actor;
 	} );
+
+	processEventsToFeedItems( events );
 }
 
 function processEventsToFeedItems( events ) {
-	events.forEach( ( event ) => {
-		if ( !( event.type in handlers ) )
-			return;
-
-		var item = handlers[ event.type ]( event );
-
-		if ( item )
-			list.push( item );
-	} );
-
-	list.sort( ( a, b ) => b.time - a.time );
+	events.forEach( eventToItemPusher );
+	list.sort( sortTimeDesc );
 }
 
-module.exports = getUserEvents;
+function eventToItemPusher( event ) {
+  if ( !( event.type in handlers ) )
+    return;
+
+  var item = handlers[ event.type ]( event );
+
+  if ( item )
+    list.push( item );
+}
 
