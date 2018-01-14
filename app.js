@@ -14,7 +14,7 @@ const pathPublic = path.join( __dirname, 'public' );
 const app = module.exports = express();
 app.locals.ENV = process.env.NODE_ENV || 'development';
 app.locals.ENV_DEVELOPMENT = app.locals.ENV == 'development';
-app.locals.mainMenu = [ 'about', 'portfolio', 'feed', 'contact' ];
+app.locals.mainMenu = [ 'about', 'portfolio', 'feed', 'status', 'contact' ];
 
 // view engine setup
 app.engine( 'handlebars', exphbs );
