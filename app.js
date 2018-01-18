@@ -6,6 +6,7 @@ const cookieParser = require( 'cookie-parser' );
 const bodyParser = require( 'body-parser' );
 
 const exphbs = require( './exphbs' );
+const redirect = require( './redirect' );
 const routes = require( './routes' );
 
 const pathView = path.join( __dirname, 'views' );
@@ -29,6 +30,7 @@ app.set( 'view engine', 'handlebars' );
 	[ cookieParser() ],
 	[ express.static( pathPublic ) ],
 
+	[ '/r', redirect ],
 	[ '/', routes ],
 ].forEach( params => app.use( ...params ) )
 
