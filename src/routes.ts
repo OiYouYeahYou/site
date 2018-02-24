@@ -1,6 +1,7 @@
-const router = module.exports = require( 'express' ).Router();
+import { Router } from 'express'
+import feedList from './feed/list';
 
-const feedList = require( './feed/list' );
+export const routes = Router();
 
 const homeOptions = {};
 const feedOptions = {
@@ -28,5 +29,5 @@ simpleRouter( '/', 'index', homeOptions );
 
 
 function simpleRouter( path, view, opts ) {
-	router.get( path, ( req, res ) => res.render( view, opts ) );
+	routes.get( path, ( req, res ) => res.render( view, opts ) );
 }

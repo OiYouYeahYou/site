@@ -1,4 +1,4 @@
-module.exports = [
+export default [
 	{
 		heading: 'Totally not a blog post!',
 		content: 'Do ... I put words here?',

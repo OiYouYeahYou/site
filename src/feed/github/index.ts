@@ -1,8 +1,9 @@
-const fs = require( 'fs' );
-const request = require( 'request' );
+require( 'source-map-support' ).install()
 
-const handlers = require( './handlers' );
-const list = require( '../list' );
+import * as request from 'request';
+
+import handlers from './handlers';
+import list from '../list';
 
 const user = 'oiyouyeahyou';
 const eventURL = `https://api.github.com/users/${ user }/events`;
@@ -14,9 +15,10 @@ const requestOptions = {
 
 const sortTimeDesc = ( a, b ) => b.time - a.time;
 
-const getUserEvents = module.exports = () => {
+const getUserEvents = () => {
 	request( eventURL, requestOptions, responseHandler );
 }
+export default getUserEvents
 
 function responseHandler( err, res, body ) {
 	var events = JSON.parse( body );
@@ -35,12 +37,12 @@ function processEventsToFeedItems( events ) {
 }
 
 function eventToItemPusher( event ) {
-  if ( !( event.type in handlers ) )
-    return;
+	if ( !( event.type in handlers ) )
+		return;
 
-  var item = handlers[ event.type ]( event );
+	var item = handlers[ event.type ]( event );
 
-  if ( item )
-    list.push( item );
+	if ( item )
+		list.push( item );
 }
 

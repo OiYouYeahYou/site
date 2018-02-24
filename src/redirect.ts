@@ -1,10 +1,10 @@
-const router = module.exports = require( 'express' ).Router();
+export const redirect = require( 'express' ).Router();
 
 const config = {
 	twitter: 'http://twitter.com/oiyouyeahyou'
 };
 
-router.get( '/:service', ( req, res ) => {
+redirect.get( '/:service', ( req, res ) => {
 	const service = req.params.service;
 	const url = service in config && typeof config[ service ] === 'string'
 

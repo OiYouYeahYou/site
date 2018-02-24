@@ -1,7 +1,7 @@
-const exphbs = require( 'express-handlebars' );
-const moment = require( 'moment' );
+import * as exphbs from 'express-handlebars';
+import moment = require( 'moment' );
 
-module.exports =  exphbs( {
+export default exphbs( {
 	defaultLayout: 'main',
 	partialsDir: [ 'views/partials/' ],
 	helpers: {
