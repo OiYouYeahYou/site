@@ -1,7 +1,6 @@
 import * as express from 'express';
 import { join } from 'path';
 // import favicon from 'serve-favicon';
-import * as logger from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import { urlencoded, json } from 'body-parser';
 
@@ -25,7 +24,6 @@ app.set( 'view engine', 'handlebars' );
 
 // app.use(favicon(__dirname + '/public/img/favicon.ico'));
 [
-	[ logger( 'dev' ) ],
 	[ json() ],
 	[ urlencoded( { extended: true } ) ],
 	[ cookieParser() ],
