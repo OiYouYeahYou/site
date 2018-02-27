@@ -1,12 +1,10 @@
 import { Router } from 'express'
-import feedList from './feed/list';
+import { feed } from './feed/list';
 
 export const routes = Router();
 
 const homeOptions = {};
-const feedOptions = {
-	feed: feedList
-};
+const feedOptions = { feed };
 const statusOptions = {
 	statusses: [
 		{

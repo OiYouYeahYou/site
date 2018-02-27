@@ -1,3 +1,5 @@
+require( 'source-map-support' ).install()
+
 import * as express from 'express';
 import { join } from 'path';
 // import favicon from 'serve-favicon';
@@ -32,6 +34,3 @@ app.set( 'view engine', 'handlebars' );
 	[ '/r', redirect ],
 	[ '/', routes ],
 ].forEach( params => app.use( ...params ) )
-
-
-require( './feed/github' ).default();
