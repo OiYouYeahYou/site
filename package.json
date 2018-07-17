@@ -4,6 +4,7 @@
 	"private": true,
 	"main": "app.js",
 	"scripts": {
+		"lint:prettier": "prettier --write src/**/*.ts gulpfile.js",
 		"start": "gulp && node ./bin/www",
 		"postinstall": "gulp"
 	},
@@ -31,6 +32,7 @@
 		"del": "^3.0.0",
 		"gulp": "^3.9.1",
 		"gulp-sourcemaps": "^2.6.4",
-		"gulp-typescript": "^4.0.1"
+		"gulp-typescript": "^4.0.1",
+		"prettier": "^1.13.7"
 	}
 }
