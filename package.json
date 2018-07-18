@@ -6,7 +6,8 @@
 	"scripts": {
 		"lint:prettier": "prettier --write src/**/*.ts gulpfile.js",
 		"start": "gulp && node ./bin/www",
-		"postinstall": "gulp"
+		"postinstall": "gulp",
+		"test": "ava"
 	},
 	"dependencies": {
 		"@octokit/rest": "^14.0.9",
@@ -29,10 +30,13 @@
 		"@types/express-handlebars": "0.0.30",
 		"@types/morgan": "^1.7.35",
 		"@types/request": "^2.47.0",
+		"@types/supertest": "^2.0.5",
+		"ava": "^0.25.0",
 		"del": "^3.0.0",
 		"gulp": "^3.9.1",
 		"gulp-sourcemaps": "^2.6.4",
 		"gulp-typescript": "^4.0.1",
-		"prettier": "^1.13.7"
+		"prettier": "^1.13.7",
+		"supertest": "^3.1.0"
 	}
 }
