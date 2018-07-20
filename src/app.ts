@@ -1,35 +1,46 @@
 require('source-map-support').install()
 
 import * as express from 'express'
-import { join } from 'path'
-// import favicon from 'serve-favicon';
+import { join, normalize } from 'path'
+import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
 import { urlencoded, json } from 'body-parser'
+import * as exphbs from 'express-handlebars'
+import moment = require('moment')
 
-import exphbs from './exphbs'
 import { redirect } from './redirect'
 import { routes } from './routes'
 
 const pathView = join(__dirname, '../views')
 const pathPublic = join(__dirname, '../public')
+const pathFavicon = normalize(__dirname + '/../public/img/favicon.ico')
 
 export const app = express()
 app.locals.ENV = process.env.NODE_ENV || 'development'
 app.locals.ENV_DEVELOPMENT = app.locals.ENV == 'development'
 app.locals.mainMenu = ['about', 'portfolio', 'feed', 'status', 'contact']
 
-// view engine setup
-app.engine('handlebars', exphbs)
+app.engine(
+	'handlebars',
+	exphbs({
+		defaultLayout: 'main',
+		partialsDir: ['views/partials/'],
+		helpers: {
+			friendlyDateTime: d => {
+				return moment(d).format('h:hh - d MMM YYYY')
+			},
+		},
+	})
+)
 app.set('views', pathView)
 app.set('view engine', 'handlebars')
 
-// app.use(favicon(__dirname + '/public/img/favicon.ico'));
-;[
-	[json()],
-	[urlencoded({ extended: true })],
-	[cookieParser()],
-	[express.static(pathPublic)],
+app.use(favicon(pathFavicon))
 
-	['/r', redirect],
-	['/', routes],
-].forEach(params => app.use(...params))
+app.use(json())
+app.use(urlencoded({ extended: true }))
+app.use(cookieParser())
+app.use(express.static(pathPublic))
+
+app.use('/r', redirect)
+app.use('/', routes)
