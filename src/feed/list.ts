@@ -1,4 +1,4 @@
-import { getGitHubEvents } from './github'
+import { config, feedConfig } from '../config'
 
 export interface IListItem {
 	heading?: string
@@ -7,15 +7,20 @@ export interface IListItem {
 	place?: string
 }
 
+export interface HandlerParams<T = {}> {
+	feed: IListItem[]
+	config: feedConfig & T
+}
+
 export const feed: IListItem[] = [
 	{
 		heading: 'Totally not a blog post!',
 		content: 'Do ... I put words here?',
-		time: new Date(Date.now()),
+		time: new Date('2018-08-20'),
 	},
 	{
 		content: 'Hello World!',
-		time: new Date(Date.now()),
+		time: new Date('2017-04-15'),
 	},
 	{
 		content: 'In the begining!',
@@ -24,10 +29,15 @@ export const feed: IListItem[] = [
 	},
 ]
 
-getGitHubEvents()
+const handlerPromises = config.feed.map<Promise<void>>(async config => {
+	const params: HandlerParams = { feed, config }
 
-export function sortFeed() {
-	feed.sort(sortTimeDesc)
-}
+	return require(`./handlers/${config.type}`)(params)
+})
 
-const sortTimeDesc = (a, b) => b.time - a.time
+Promise.all(handlerPromises)
+	.catch(err => console.log(err))
+	.then(() => {
+		// @ts-ignore It's valid
+		feed.sort((a, b) => b.time - a.time)
+	})
