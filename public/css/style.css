@@ -25,3 +25,27 @@ a {
 .feed-meta-data {
   font-size: 12px;
 }
+
+/* Status */
+
+.status-icon {
+  display: inline-block;
+  min-width: 50px;
+  vertical-align: middle;
+}
+
+.status-name {
+  display: inline-block;
+  min-width: 120px;
+  vertical-align: middle;
+}
+
+.status-status {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.status-context {
+  display: block;
+  margin-left: 70px;
+}

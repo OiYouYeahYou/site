@@ -1,6 +1,62 @@
-{{#each statusses}}
-	<section>
-		<span>{{ title }}: </span>
-		<span>{{ status }}</span>
-	</section>
-{{/each}}
+<section class="status-section">
+	<!--
+		Online
+		Streaming
+		Busy
+		Away
+		Offline
+		"Invisible"
+	-->
+	<span class="status-icon">
+		<img src="img/favicon.ico" />
+	</span>
+	<span class="status-name">Connection: </span>
+	<span class="status-status">Online</span>
+</section>
+
+<section class="status-section">
+	<!--
+		"Music title"
+		in silence
+	-->
+	<span class="status-icon">
+		<img src="img/favicon.ico" />
+	</span>
+	<span class="status-name">Music: </span>
+	<span class="status-status">
+		<strong>Wear Sunscreen</strong> by Baz Luhrmann</span>
+</section>
+
+<section class="status-section">
+	<!--
+		Project title
+			link to:
+				Github
+				Project page /project/:projectName
+
+		"no project"
+	-->
+	<span class="status-icon">
+		<img src="img/favicon.ico" />
+	</span>
+	<span class="status-name">Working on: </span>
+	<span class="status-status">My site</span>
+	<span class="status-context">
+		<a href="https://github.com/OiYouYeahYou/site">Github</a>
+	</span>
+</section>
+
+<section class="status-section">
+	<!--
+		League of Legends
+		Mancala
+		...
+
+		"not playing"
+	-->
+	<span class="status-icon">
+		<img src="img/favicon.ico" />
+	</span>
+	<span class="status-name">Playing: </span>
+	<span class="status-status">FTL</span>
+</section>
