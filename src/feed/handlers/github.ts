@@ -23,7 +23,7 @@ export = async function handler({ config, feed }: HandlerParams<GitHubConfig>) {
 
 	const events = await octokit.activity.getEventsForUser({ username })
 
-	for (const event of events) {
+	for (const event of events.data) {
 		const { type } = event
 
 		if (!(type in handlers)) return
