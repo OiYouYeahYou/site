@@ -1,7 +1,9 @@
 import { Router } from 'express'
-import { feed } from './feed/list'
+import { makeList } from './feed/list'
+import { config } from './config'
 
 export const routes = Router()
+const feed = makeList(config)
 
 const homeOptions = {}
 const feedOptions = { feed }

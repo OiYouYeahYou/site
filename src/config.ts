@@ -1,6 +1,6 @@
 export const config: config = require('../.config.json')
 
-interface config {
+export interface config {
 	feed: feedConfig[]
 }
 

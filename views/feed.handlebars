@@ -1,19 +1,27 @@
-{{#each feed }}
-  <div class="feed-item">
-    {{#if heading }}<h4>{{{ heading }}}</h4>{{/if}}
+<p>
+  {{#if feed.length}}
+    {{#each feed }}
+      <div class="feed-item">
+        {{#if heading }}
+          <h4>{{{ heading }}}</h4>
+        {{/if}}
 
-    <div class="feed-content">
-      {{{ content }}}
-    </div>
+        <div class="feed-content">
+          {{{ content }}}
+        </div>
 
-    <div class="feed-meta-data">
-      Time: {{ friendlyDateTime time }}
-    </div>
+        <div class="feed-meta-data">
+          Time: {{ friendlyDateTime time }}
+        </div>
 
-    {{#if place }}
-      <div class="feed-meta-data">
-        From: {{ place }}
+        {{#if place }}
+          <div class="feed-meta-data">
+            From: {{ place }}
+          </div>
+        {{/if }}
       </div>
-    {{/if }}
-  </div>
-{{/each }}
+    {{/each }}
+  {{else}}
+    <i>Feed is empty</i>
+  {{/if}}
+</p>

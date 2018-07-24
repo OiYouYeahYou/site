@@ -7,37 +7,32 @@ export interface IListItem {
 	place?: string
 }
 
-export interface HandlerParams<T = {}> {
+export interface ConfigHandlerParams<T = {}> {
 	feed: IListItem[]
 	config: feedConfig & T
 }
 
-export const feed: IListItem[] = [
-	{
-		heading: 'Totally not a blog post!',
-		content: 'Do ... I put words here?',
-		time: new Date('2018-08-20'),
-	},
-	{
-		content: 'Hello World!',
-		time: new Date('2017-04-15'),
-	},
-	{
-		content: 'In the begining!',
-		place: 'Twooter',
-		time: new Date(0),
-	},
-]
+export async function makeList(config: config) {
+	const feed: IListItem[] = []
 
-const handlerPromises = config.feed.map<Promise<void>>(async config => {
-	const params: HandlerParams = { feed, config }
+	await Promise.all(
+		config.feed.map(config => {
+			const params: ConfigHandlerParams = { feed, config }
 
-	return require(`./handlers/${config.type}`)(params)
-})
+			try {
+				return require(`./handlers/${config.type}`)(params)
+			} catch (error) {
+				if (error.code === 'MODULE_NOT_FOUND')
+					console.log(
+						`Unable to find a handler for ${config.type}`,
+						error
+					)
 
-Promise.all(handlerPromises)
-	.catch(err => console.log(err))
-	.then(() => {
-		// @ts-ignore It's valid
-		feed.sort((a, b) => b.time - a.time)
-	})
+				console.log(error)
+			}
+		})
+	).catch(err => console.log(err))
+
+	// @ts-ignore Sort algortithm is valid
+	return feed.sort((a, b) => b.time - a.time)
+}

@@ -1,6 +1,6 @@
 import * as Octokit from '@octokit/rest'
 
-import { IListItem, HandlerParams } from '../list'
+import { IListItem, ConfigHandlerParams } from '../list'
 
 interface IPayload {
 	repo: any
@@ -17,7 +17,10 @@ interface GitHubConfig {
 	username: string
 }
 
-export = async function handler({ config, feed }: HandlerParams<GitHubConfig>) {
+export = async function handler({
+	config,
+	feed,
+}: ConfigHandlerParams<GitHubConfig>) {
 	const octokit = new Octokit()
 	const { username } = config
 
