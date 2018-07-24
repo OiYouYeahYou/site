@@ -7,6 +7,7 @@ import * as cookieParser from 'cookie-parser'
 import { urlencoded, json } from 'body-parser'
 import * as exphbs from 'express-handlebars'
 import moment = require('moment')
+import simpleIcons = require('simple-icons')
 
 import { redirect } from './redirect'
 import { routes } from './routes'
@@ -42,5 +43,14 @@ app.use(urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.static(pathPublic))
 
+app.use('/svg/:name', (req, res) => {
+	const icon = simpleIcons[req.params.name]
+
+	if (!icon) return res.status(404).send()
+
+	res.status(200)
+		.set('Content-Type', 'image/svg+xml')
+		.send(icon.svg.replace(/<path /g, `<path fill="white" `))
+})
 app.use('/r', redirect)
 app.use('/', routes)

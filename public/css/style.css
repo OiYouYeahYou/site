@@ -51,3 +51,19 @@ a {
 	display: block;
 	margin-left: 70px;
 }
+
+/* Contact */
+
+.contact-link {
+	color: #c8c8c8;
+	text-decoration: none;
+	display: block;
+	padding-bottom: 2px;
+}
+
+.contact-logo {
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
+	padding-right: 3px;
+}

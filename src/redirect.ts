@@ -2,6 +2,7 @@ export const redirect = require('express').Router()
 
 const config = {
 	twitter: 'http://twitter.com/oiyouyeahyou',
+	instagram: 'http://instagram.com/oiyouyeahyou',
 }
 
 redirect.get('/:service', (req, res) => {
@@ -11,6 +12,6 @@ redirect.get('/:service', (req, res) => {
 	if (!url) {
 		res.redirect(404, '/')
 	} else {
-		res.redirect(200, url)
+		res.redirect(config[service])
 	}
 })

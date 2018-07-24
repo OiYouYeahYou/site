@@ -1,3 +1,9 @@
 <p>
-  Do not @ me, unless you wish to speak to me
+  {{#each contacts}}
+    <a href="/r/{{redirection}}" class="contact-link">
+      <img src="/svg/{{service}}" class="contact-logo">
+      <strong>{{service}}:</strong>
+      <i>{{username}}</i>
+    </a>
+  {{/each}}
 </p>
