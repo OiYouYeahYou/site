@@ -12,6 +12,9 @@ import simpleIcons = require('simple-icons')
 import { redirect } from './redirect'
 import { routes } from './routes'
 
+/******************************************************************************
+ * Initialise
+ ******************************************************************************/
 const pathView = join(__dirname, '../views')
 const pathPublic = join(__dirname, '../public')
 const pathFavicon = normalize(__dirname + '/../public/img/favicon.ico')
@@ -21,6 +24,9 @@ app.locals.ENV = process.env.NODE_ENV || 'development'
 app.locals.ENV_DEVELOPMENT = app.locals.ENV == 'development'
 app.locals.mainMenu = ['about', 'portfolio', 'feed', 'status', 'contact']
 
+/******************************************************************************
+ * View Engine
+ ******************************************************************************/
 app.engine(
 	'handlebars',
 	exphbs({
@@ -36,6 +42,9 @@ app.engine(
 app.set('views', pathView)
 app.set('view engine', 'handlebars')
 
+/******************************************************************************
+ * Generic Handlers
+ ******************************************************************************/
 app.use(favicon(pathFavicon))
 
 app.use(json())
@@ -43,6 +52,9 @@ app.use(urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.static(pathPublic))
 
+/******************************************************************************
+ * Routing
+ ******************************************************************************/
 app.use('/svg/:name', (req, res) => {
 	const icon = simpleIcons[req.params.name]
 
@@ -54,3 +66,43 @@ app.use('/svg/:name', (req, res) => {
 })
 app.use('/r', redirect)
 app.use('/', routes)
+
+/******************************************************************************
+ * error Handlers
+ ******************************************************************************/
+app.use((req, res, next) => {
+	const err = new Error('Not Found')
+	// @ts-ignore
+	err.status = 404
+
+	next(err)
+})
+
+const isDev = app.get('env') === 'development'
+if (isDev)
+	app.use((err, req, res, next) => {
+		res.status(err.status || 500)
+		res.render('error', {
+			message: err.message,
+			error: err,
+			title: 'error',
+		})
+	})
+else
+	app.use((err, req, res, next) => {
+		res.status(err.status || 500)
+		res.render('error', {
+			message: err.message,
+			error: {},
+			title: 'error',
+		})
+	})
+
+/******************************************************************************
+ * Launch Server
+ ******************************************************************************/
+app.set('port', process.env.PORT || 3000)
+
+var server = app.listen(app.get('port'), function() {
+	console.log(`Express server listening on port ${server.address().port}`)
+})
