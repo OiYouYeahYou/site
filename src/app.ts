@@ -11,6 +11,7 @@ import simpleIcons = require('simple-icons')
 
 import { redirect } from './redirect'
 import { routes } from './routes'
+import { api } from './api'
 
 /******************************************************************************
  * Initialise
@@ -65,6 +66,7 @@ app.use('/svg/:name', (req, res) => {
 		.send(icon.svg.replace(/<path /g, `<path fill="white" `))
 })
 app.use('/r', redirect)
+app.use('/api', api)
 app.use('/', routes)
 
 /******************************************************************************
