@@ -75,6 +75,23 @@ router.use('/status/:path/info/:state', (req, res) => {
 		res.status(404).json({ error: `path not found: ${path}` })
 	}
 })
+router.use('/status/:path/state/:state/delete', (req, res) => {
+	const { path, state } = req.params
+
+	if (statuses.hasOwnProperty(path)) {
+		const status = statuses[path]
+
+		if (!status.states.hasOwnProperty(state)) {
+			res.status(404).json({ error: `invalid state: ${state}` })
+		} else {
+			delete status.states[state]
+
+			res.status(200).json(status)
+		}
+	} else {
+		res.status(404).json({ error: `path not found: ${path}` })
+	}
+})
 router.use('/status/:path', (req, res) => {
 	const { path } = req.params
 
