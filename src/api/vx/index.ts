@@ -1,5 +1,7 @@
 import { Router } from 'express'
 import { IRouter } from '..'
+import { StatusManager, StatusConfig } from '../../status/status'
+import { mockStatuses } from '../../status/mockStatusData'
 
 const router = Router()
 
@@ -8,51 +10,19 @@ export const vx: IRouter = {
 	router: router,
 }
 
-const statuses = {
-	connection: {
-		type: 'StaticStatus',
-		path: 'connection',
-		label: 'Connection',
-		currentState: 'online',
-		states: {
-			online: {
-				name: 'online',
-				icon: '',
-			},
-			streaming: {
-				name: 'streaming',
-				icon: '',
-			},
-			busy: {
-				name: 'busy',
-				icon: '',
-			},
-			away: {
-				name: 'away',
-				icon: '',
-			},
-			offline: {
-				name: 'offline',
-				icon: '',
-			},
-			invisible: {
-				name: 'invisible',
-				icon: '',
-			},
-		},
-	},
-}
+const statusManager = new StatusManager(
+	Object.values<StatusConfig>(mockStatuses)
+)
 
 router.use('/status/:path/update/:state', (req, res) => {
 	const { path, state } = req.params
+	const status = statusManager.getStatus(path)
 
-	if (statuses.hasOwnProperty(path)) {
-		const status = statuses[path]
-
-		if (!status.states.hasOwnProperty(state)) {
+	if (status) {
+		if (!status.hasState(state)) {
 			res.status(404).json({ error: `invalid: ${state}` })
 		} else {
-			status.currentState = state
+			status.setState(state)
 
 			res.status(200).json(status)
 		}
@@ -62,14 +32,13 @@ router.use('/status/:path/update/:state', (req, res) => {
 })
 router.use('/status/:path/info/:state', (req, res) => {
 	const { path, state } = req.params
+	const status = statusManager.getStatus(path)
 
-	if (statuses.hasOwnProperty(path)) {
-		const status = statuses[path]
-
-		if (!status.states.hasOwnProperty(state)) {
+	if (status) {
+		if (!status.hasState(state)) {
 			res.status(404).json({ error: `invalid state: ${state}` })
 		} else {
-			res.status(200).json(status.states[state])
+			res.status(200).json(status.getState(state))
 		}
 	} else {
 		res.status(404).json({ error: `path not found: ${path}` })
@@ -77,16 +46,15 @@ router.use('/status/:path/info/:state', (req, res) => {
 })
 router.use('/status/:path/state/:state/delete', (req, res) => {
 	const { path, state } = req.params
+	const status = statusManager.getStatus(path)
 
-	if (statuses.hasOwnProperty(path)) {
-		const status = statuses[path]
-
-		if (!status.states.hasOwnProperty(state)) {
+	if (status) {
+		if (!status.hasState(state)) {
 			res.status(404).json({ error: `invalid state: ${state}` })
 		} else {
-			delete status.states[state]
+			status.deleteState(state)
 
-			res.status(200).json(status)
+			res.status(200).json(status.toJSON())
 		}
 	} else {
 		res.status(404).json({ error: `path not found: ${path}` })
@@ -94,18 +62,17 @@ router.use('/status/:path/state/:state/delete', (req, res) => {
 })
 router.use('/status/:path', (req, res) => {
 	const { path } = req.params
+	const status = statusManager.getStatus(path)
 
-	if (statuses.hasOwnProperty(path)) {
-		const status = statuses[path]
-
-		res.status(200).json(status)
+	if (status) {
+		res.status(200).json(status.toJSON())
 	} else {
 		res.status(404).json({ error: `path not found: ${path}` })
 	}
 })
 router.use('/status', (req, res) =>
 	res.status(200).json({
-		paths: Object.keys(statuses),
+		paths: statusManager.getKeys(),
 	})
 )
 router.use('/', (req, res) => res.json({}))
