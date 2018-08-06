@@ -12,9 +12,7 @@ export interface ConfigHandlerParams<T = {}> {
 	config: feedConfig & T
 }
 
-export async function makeList(config: config) {
-	const feed: IListItem[] = []
-
+export async function makeList(config: config, feed: IListItem[]) {
 	await Promise.all(
 		config.feed.map(config => {
 			const params: ConfigHandlerParams = { feed, config }
@@ -34,5 +32,5 @@ export async function makeList(config: config) {
 	).catch(err => console.log(err))
 
 	// @ts-ignore Sort algortithm is valid
-	return feed.sort((a, b) => b.time - a.time)
+	feed.sort((a, b) => b.time - a.time)
 }

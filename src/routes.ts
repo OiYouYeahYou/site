@@ -3,10 +3,12 @@ import { makeList } from './feed/list'
 import { config } from './config'
 
 export const routes = Router()
-const feed = makeList(config)
+const feed = []
+
+makeList(config, feed)
 
 interface contacts {
-	contacts: {
+	contacts?: {
 		service: string
 		redirection: string
 		username: string
