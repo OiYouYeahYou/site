@@ -60,6 +60,18 @@ router.use('/status/:path/state/:state/delete', (req, res) => {
 		res.status(404).json({ error: `path not found: ${path}` })
 	}
 })
+router.use('/status/:path/heartbeat/:state', (req, res) => {
+	const { path, state } = req.params
+	const status = statusManager.getStatus(path)
+
+	if (status) {
+		status.heartbeat(state)
+
+		res.status(200).json(status.toJSON())
+	} else {
+		res.status(404).json({ error: `path not found: ${path}` })
+	}
+})
 router.use('/status/:path', (req, res) => {
 	const { path } = req.params
 	const status = statusManager.getStatus(path)

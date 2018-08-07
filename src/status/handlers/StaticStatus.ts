@@ -43,6 +43,11 @@ export class StaticStatus implements IStatus {
 		return this.config.states.hasOwnProperty(key)
 	}
 
+	heartbeat(state: string) {
+		this.setState(state)
+		return (this.config.lastBeat = Date.now())
+	}
+
 	addState(key, { name, icon, colour }) {
 		this.config.states[key] = {
 			name,

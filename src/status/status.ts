@@ -8,6 +8,7 @@ export interface IStatus {
 	setState(key: string): void
 	deleteState(key: string): void
 	hasState(key: string): boolean
+	heartbeat(key: string): number
 }
 
 export interface StatusConfig {
@@ -15,6 +16,7 @@ export interface StatusConfig {
 	path: string
 	label: string
 	currentState: string
+	lastBeat?: number
 	states: {
 		[key: string]: {
 			name: string
