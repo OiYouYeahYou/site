@@ -25,8 +25,6 @@ export async function makeList(config: config, feed: IListItem[]) {
 						`Unable to find a handler for ${config.type}`,
 						error
 					)
-
-				console.log(error)
 			}
 		})
 	).catch(err => console.log(err))
