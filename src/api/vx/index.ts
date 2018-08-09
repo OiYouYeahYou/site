@@ -82,9 +82,9 @@ router.use('/status/:path', (req, res) => {
 		res.status(404).json({ error: `path not found: ${path}` })
 	}
 })
-router.use('/status', (req, res) =>
+router.use('/status', (req, res) => {
 	res.status(200).json({
 		paths: statusManager.getKeys(),
 	})
-)
+})
 router.use('/', (req, res) => res.json({}))
